@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.zap.Kalanjali.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.zap.Kalanjali.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -43,14 +43,14 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.zap.Kalanjali.Locate_us"
+            android:name=".Locate_us"
             android:label="@string/title_activity_locate_us" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.zap.Kalanjali.MainActivity" />
         </activity>
         <activity
-            android:name="com.zap.Kalanjali.EventActivity"
+            android:name=".EventActivity"
             android:label="@string/title_activity_event" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
