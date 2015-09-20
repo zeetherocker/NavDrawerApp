@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="3dp">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:id="@+id/form_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <fragment
+                android:id="@+id/fragmentmain"
+                class="com.zeeshan.navdrawerapp.MainHome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/home_main_event"
+                android:layout_marginTop="14dp" />
+
+        <fragment
+            android:id="@+id/fragment1"
+            class="com.zeeshan.navdrawerapp.FirstHome"
+            android:layout_width="wrap_content"
+            android:layout_height="362dp"
+            tools:layout="@layout/card_list"
+            android:layout_below="@+id/fragmentmain"
+            android:layout_marginTop="14dp" />
+
+        <fragment
+            android:id="@+id/fragment2"
+            class="com.zeeshan.navdrawerapp.SecondHome"
+            android:layout_width="wrap_content"
+            android:layout_height="362dp"
+            tools:layout="@layout/card_list"
+            android:layout_below="@+id/fragment1"
+            android:layout_marginTop="16dp" />
+
+        <fragment
+            android:id="@+id/fragment3"
+            class="com.zeeshan.navdrawerapp.ThirdHome"
+            android:layout_width="wrap_content"
+            android:layout_height="362dp"
+            tools:layout="@layout/card_list"
+            android:layout_below="@+id/fragment2"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="10dp"/>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

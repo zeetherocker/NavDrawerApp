@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_marginTop="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_margin="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/card_image"
+        android:layout_width="160dp"
+        android:layout_height="80dp"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/card_item"
+        android:layout_toRightOf="@id/card_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Name"
+        android:gravity="top"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignBottom="@+id/card_image" />
+
+</RelativeLayout>

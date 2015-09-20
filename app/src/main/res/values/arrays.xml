@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="event_names">
+        <item>Event 1</item>
+        <item>Event 2</item>
+        <item>Event 3</item>
+        <item>Event 4</item>
+        <item>Event 5</item>
+        <item>Event 6</item>
+        <item>Event 7</item>
+        <item>Event 8</item>
+    </string-array>
+
+
+    <array name="event_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_events</item>
+        <item>@drawable/ic_mail</item>
+        <item>@drawable/ic_maps</item>
+    </array>
+
+</resources>
