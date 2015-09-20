@@ -7,6 +7,7 @@
     android:padding="3dp">
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
@@ -18,7 +19,7 @@
 
             <fragment
                 android:id="@+id/fragmentmain"
-                class="com.zeeshan.navdrawerapp.MainHome"
+                class="com.zap.Kalanjali.MainHome"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout="@layout/home_main_event"
@@ -26,7 +27,7 @@
 
         <fragment
             android:id="@+id/fragment1"
-            class="com.zeeshan.navdrawerapp.FirstHome"
+            class="com.zap.Kalanjali.FirstHome"
             android:layout_width="wrap_content"
             android:layout_height="362dp"
             tools:layout="@layout/card_list"
@@ -35,7 +36,7 @@
 
         <fragment
             android:id="@+id/fragment2"
-            class="com.zeeshan.navdrawerapp.SecondHome"
+            class="com.zap.Kalanjali.SecondHome"
             android:layout_width="wrap_content"
             android:layout_height="362dp"
             tools:layout="@layout/card_list"
@@ -44,7 +45,7 @@
 
         <fragment
             android:id="@+id/fragment3"
-            class="com.zeeshan.navdrawerapp.ThirdHome"
+            class="com.zap.Kalanjali.ThirdHome"
             android:layout_width="wrap_content"
             android:layout_height="362dp"
             tools:layout="@layout/card_list"

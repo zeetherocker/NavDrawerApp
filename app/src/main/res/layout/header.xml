@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:textColor="#ffffff"
-            android:text="Zeeshan Ahmed P"
+            android:text="@string/app_name"
             android:textSize="15sp"
             android:textStyle="bold"
 
@@ -35,7 +35,7 @@
             android:textColor="#ffffff"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
-            android:text="zeetherocker@gmail.com"
+            android:text="kalanjali@mvit.com"
             android:textSize="14sp"
             android:textStyle="normal"
 

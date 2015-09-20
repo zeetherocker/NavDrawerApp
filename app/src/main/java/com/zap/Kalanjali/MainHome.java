@@ -1,4 +1,4 @@
-package com.zeeshan.navdrawerapp;
+package com.zap.Kalanjali;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ScrollView;
 
 /**
  * Created by Zeeshan on 9/20/2015.
@@ -22,6 +22,8 @@ public class MainHome extends Fragment {
         myView = inflater.inflate(R.layout.home_main_event, container, false);
         myView.isClickable();
         myView.setOnClickListener(mClickListner);
+        ScrollView v = (ScrollView) myView.findViewById(R.id.scroll_view);
+        myView.setFocusable(false);
         return myView;
     }
 

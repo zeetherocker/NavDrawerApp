@@ -1,6 +1,5 @@
-package com.zeeshan.navdrawerapp;
+package com.zap.Kalanjali;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,13 +14,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by Zeeshan on 9/20/2015.
  */
-public class FirstHome extends Fragment {
+public class SecondHome extends Fragment {
 
     private String[] listtitles = {"Event-1", "Event-2", "Event-3"};
     private int[] listicons= {R.drawable.ic_card1, R.drawable.ic_card2, R.drawable.ic_card1};
@@ -38,14 +36,6 @@ public class FirstHome extends Fragment {
         return myView;
     }
 
-    public void populateList() {
-
-        ArrayAdapter<CardInfo> adapter = new MyAdapter();
-        ListView listView = (ListView) myView.findViewById(R.id.listView);
-        listView.setAdapter(adapter);
-
-    }
-
     private void registerClick() {
         ListView list = (ListView) myView.findViewById(R.id.listView);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,6 +44,14 @@ public class FirstHome extends Fragment {
                 startActivity(new Intent(getActivity(), EventActivity.class));
             }
         });
+    }
+
+    public void populateList() {
+
+        ArrayAdapter<CardInfo> adapter = new MyAdapter();
+        ListView listView = (ListView) myView.findViewById(R.id.listView);
+        listView.setAdapter(adapter);
+
     }
 
     public List<CardInfo> getData() {
@@ -81,9 +79,9 @@ public class FirstHome extends Fragment {
 
             CardInfo currentCard = dataCurrent.get(position);
 
-            TextView titleView = (TextView) myView.findViewById(R.id.card_list_label);
-            titleView.setText("Music Events");
-            titleView.isClickable();
+            TextView labelView = (TextView) myView.findViewById(R.id.card_list_label);
+            labelView.setText("Dance Events");
+            itemView.isClickable();
             ImageView imageView = (ImageView) itemView.findViewById(R.id.card_image);
             TextView textView = (TextView) itemView.findViewById(R.id.card_item);
             imageView.setImageResource(currentCard.iconId);

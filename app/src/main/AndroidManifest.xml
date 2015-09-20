@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zeeshan.navdrawerapp" >
+    package="com.zap.Kalanjali" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.zap.Kalanjali.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,11 +28,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.zap.Kalanjali.SettingsActivity"
             android:label="@string/title_activity_settings" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.zeeshan.navdrawerapp.MainActivity" />
+                android:value="com.zap.Kalanjali.MainActivity" />
         </activity>
 
         <meta-data
@@ -43,23 +43,18 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Locate_us"
+            android:name="com.zap.Kalanjali.Locate_us"
             android:label="@string/title_activity_locate_us" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.zeeshan.navdrawerapp.MainActivity" />
+                android:value="com.zap.Kalanjali.MainActivity" />
         </activity>
         <activity
-            android:name=".DummyActivity"
-            android:label="@string/title_activity_dummy" >
-        </activity>
-        <activity
-            android:name=".Dummy"
-            android:label="@string/title_activity_dummy" >
-        </activity>
-        <activity
-            android:name=".EventActivity"
+            android:name="com.zap.Kalanjali.EventActivity"
             android:label="@string/title_activity_event" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.zap.Kalanjali.MainActivity" />
         </activity>
     </application>
 

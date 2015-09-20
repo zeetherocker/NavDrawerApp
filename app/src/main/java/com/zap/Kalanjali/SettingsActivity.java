@@ -1,18 +1,21 @@
-package com.zeeshan.navdrawerapp;
+package com.zap.Kalanjali;
 
-import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
 
-public class EventActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event);
+        setContentView(R.layout.activity_settings);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -21,10 +24,9 @@ public class EventActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_event, menu);
         return true;
     }
 
@@ -37,10 +39,21 @@ public class EventActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
+        if(id==android.R.id.home){
+            NavUtils.navigateUpFromSameTask(this);
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        final CheckBox cb = (CheckBox) view.findViewById(R.id.maps_layout_selector);
+        boolean ischecked = cb.isChecked();
+        cb.setChecked(ischecked);
+        Locate_us.getLayout(cb);
     }
 }

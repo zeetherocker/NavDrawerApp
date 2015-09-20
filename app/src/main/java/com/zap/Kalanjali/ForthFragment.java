@@ -1,4 +1,4 @@
-package com.zeeshan.navdrawerapp;
+package com.zap.Kalanjali;
 
 
 import android.os.Bundle;
@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 /**
  * Created by Zeeshan on 9/15/2015.
  */
-public class SecondFragment extends Fragment {
+public class ForthFragment extends Fragment {
 
     View myView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.fragment_second, container, false);
+        myView = inflater.inflate(R.layout.fragment_forth, container, false);
         return myView;
     }
 }

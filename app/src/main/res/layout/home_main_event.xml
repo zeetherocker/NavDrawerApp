@@ -38,7 +38,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="25 Oct / 9.00am"
         android:layout_gravity="bottom"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="22dp"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal"
         android:textSize="14sp"/>

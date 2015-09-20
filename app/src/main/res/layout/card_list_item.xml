@@ -25,4 +25,25 @@
         android:layout_marginLeft="5dp"
         android:layout_alignBottom="@+id/card_image" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Event Description"
+        android:id="@+id/textView"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/card_item"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Time"
+        android:id="@+id/textView2"
+        android:layout_alignTop="@+id/card_item"
+        android:layout_alignParentEnd="true"
+        android:textSize="13sp"
+        android:layout_marginEnd="10dp"/>
+
 </RelativeLayout>

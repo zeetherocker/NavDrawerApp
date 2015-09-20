@@ -1,4 +1,4 @@
-package com.zeeshan.navdrawerapp;
+package com.zap.Kalanjali;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -15,11 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -156,10 +151,10 @@ public class MainActivity extends ActionBarActivity {
 
         switch (position) {
             case 0:
-                myFragment = new HomeActivity();
+                myFragment = new SecondFragment();
                 break;
             case 1:
-                myFragment = new SecondFragment();
+                myFragment = new HomeActivity();
                 break;
             case 2:
                 myFragment = new ThirdFragment();
