@@ -55,19 +55,18 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Fragment mFragment = new HomeActivity();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, mFragment)
+                .commit();
+
     /* Assinging the toolbar object ot the view
     and setting the the Action bar to our toolbar
      */
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
-
-        /*ListView list = (ListView) findViewById(R.id.card_list);
-        ArrayList<Integer> images = new ArrayList<Integer>();
-        images.add(R.drawable.ic_card1);
-        images.add(R.drawable.ic_card2);
-        CardAdapter adapter = new CardAdapter(this, images);
-
-        list.setAdapter(adapter);*/
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView); // Assigning the RecyclerView Object to the xml View
 
@@ -97,10 +96,10 @@ public class MainActivity extends ActionBarActivity {
                 if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
                     Drawer.closeDrawers();
                     position = recyclerView.getChildPosition(child);
-                    if(position==3){
-                        startMaps();
+                    if(position== 3){
+                        startActivity(position);
                     } else {
-                        openActivity(position);
+                        openFragment(position);
                     }
                     //Toast.makeText(MainActivity.this, "The Item Clicked is: " + recyclerView.getChildPosition(child), Toast.LENGTH_SHORT).show();
 
@@ -151,13 +150,13 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    public void openActivity (int position) {
+    public void openFragment (int position) {
 
         Fragment myFragment = null;
 
         switch (position) {
             case 0:
-                myFragment = new FirstFragment();
+                myFragment = new HomeActivity();
                 break;
             case 1:
                 myFragment = new SecondFragment();
@@ -178,8 +177,8 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    private void startMaps() {
-        startActivity(new Intent(this, Locate_us.class));
+    private void startActivity(int position) {
+            startActivity(new Intent(this, Locate_us.class));
 
     }
 

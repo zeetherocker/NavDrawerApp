@@ -30,9 +30,9 @@ public class Locate_us extends ActionBarActivity {
     private final LatLng LOCATION_CA = new LatLng(13.149867, 77.610226);
     private final LatLng LOCATION_ME = new LatLng(13.150604, 77.608400);
     private final LatLng LOCATION_CB = new LatLng(13.150856, 77.608690);
-    private final float LOCATION_ANGLE = 0;
+    private final float LOCATION_ANGLE = 270;
     private final float LOCATION_ZOOM = 18;
-    private final float LOCATION_TILT = 45;
+    private final float LOCATION_TILT = 60;
     private static int layout_type = 1;
 
 
@@ -72,9 +72,9 @@ public class Locate_us extends ActionBarActivity {
 
     public static void getLayout(CheckBox cb) {
         if (cb.isChecked())
-            layout_type = 0;
-        else if (!cb.isChecked())
             layout_type = 1;
+        else if (!cb.isChecked())
+            layout_type = 0;
     }
 
     private void setUpMap() {
@@ -95,6 +95,7 @@ public class Locate_us extends ActionBarActivity {
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         else if (layout_type == 0)
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMyLocationEnabled(true);
 
     }
 

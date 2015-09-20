@@ -29,7 +29,7 @@ public class FirstFragment extends Fragment {
         myView = inflater.inflate(R.layout.fragment_first, container, false);
 
         cardView = (RecyclerView) myView.findViewById(R.id.card_list);
-        cardAdapter = new CardAdapter(getActivity(), getData());
+        cardAdapter = new CardAdapter(getData());
         cardView.setAdapter(cardAdapter);
         cardView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -42,7 +42,7 @@ public class FirstFragment extends Fragment {
     public static List<CardInfo> getData() {
         List<CardInfo> data = new ArrayList<>();
         int[] icons = {R.drawable.ic_card1, R.drawable.ic_card2};
-        String[] titles = {"Card 1" ,"Card 2"};
+        String[] titles = {"Event 1" ,"Event 2"};
         for(int i=0; i<icons.length && i<titles.length; i++){
             CardInfo current = new CardInfo();
             current.iconId = icons[i];

@@ -49,6 +49,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.zeeshan.navdrawerapp.MainActivity" />
         </activity>
+        <activity
+            android:name=".DummyActivity"
+            android:label="@string/title_activity_dummy" >
+        </activity>
+        <activity
+            android:name=".Dummy"
+            android:label="@string/title_activity_dummy" >
+        </activity>
+        <activity
+            android:name=".EventActivity"
+            android:label="@string/title_activity_event" >
+        </activity>
     </application>
 
 </manifest>

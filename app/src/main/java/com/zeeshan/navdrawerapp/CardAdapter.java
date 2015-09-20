@@ -21,8 +21,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private LayoutInflater inflater;
     List<CardInfo> data = Collections.emptyList();
 
-    public CardAdapter (Context context, List<CardInfo> data) {
-        inflater = LayoutInflater.from(context);
+    public CardAdapter(List<CardInfo> data) {
+
         this.data = data;
     }
 
@@ -34,7 +34,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
 
-            cardText = (TextView) itemView.findViewById(R.id.card_text);
+            cardText = (TextView) itemView.findViewById(R.id.card_name);
             cardImage = (ImageView) itemView.findViewById(R.id.card_image);
 
         }
@@ -42,14 +42,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_card,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_card, parent, false);
 
         ViewHolder vi = new ViewHolder(v);
         return vi;
     }
 
     @Override
-    public void onBindViewHolder(CardAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         CardInfo current = data.get(position);
         holder.cardText.setText(current.title);
         holder.cardImage.setImageResource(current.iconId);
@@ -58,6 +58,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data.size();
     }
 }
