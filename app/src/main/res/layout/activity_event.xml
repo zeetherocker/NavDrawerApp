@@ -4,66 +4,52 @@
     android:layout_height="match_parent"
     tools:context="com.zap.Kalanjali.EventActivity">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/event_tool_bar_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:overScrollMode="always"
+        android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/event_page_image"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:layout_gravity="top"
+        android:paddingTop="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_main_event" />
 
-            <ImageView
-                android:id="@+id/event_page_image"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_gravity="top"
-                android:foregroundGravity="top"
-                android:paddingTop="0dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_main_event" />
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/event_page_image">
 
+    </include>
+</LinearLayout>
 
-            <include
-                android:id="@+id/tool_bar"
-                layout="@layout/tool_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/event_page_image">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/event_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="265dp" />
 
-            </include>
-
-
-
-            <fragment
-                android:id="@+id/fragment1"
-                class="com.zap.Kalanjali.FirstHome"
-                android:layout_width="wrap_content"
-                android:layout_height="362dp"
-                tools:layout="@layout/card_list"
-                android:layout_below="@+id/tool_bar"
-                android:layout_marginTop="14dp" />
-
-            <fragment
-                android:id="@+id/fragment2"
-                class="com.zap.Kalanjali.SecondHome"
-                android:layout_width="wrap_content"
-                android:layout_height="362dp"
-                tools:layout="@layout/card_list"
-                android:layout_below="@+id/fragment1"
-                android:layout_marginTop="16dp" />
-
-            <fragment
-                android:id="@+id/fragment3"
-                class="com.zap.Kalanjali.ThirdHome"
-                android:layout_width="wrap_content"
-                android:layout_height="362dp"
-                tools:layout="@layout/card_list"
-                android:layout_below="@+id/fragment2"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="10dp"/>
-
-        </RelativeLayout>
-    </ScrollView>
+    <!--<ImageButton
+        android:id="@+id/floating_Button"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginRight="16dp"
+        android:contentDescription="@null"
+        android:gravity="bottom|right"
+        android:src="@drawable/ic_fbutton"
+        android:elevation="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="100dp" />-->
 
 </RelativeLayout>
