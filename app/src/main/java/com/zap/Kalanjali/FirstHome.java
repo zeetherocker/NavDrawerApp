@@ -85,7 +85,6 @@ public class FirstHome extends Fragment {
             ImageView imageView = (ImageView) itemView.findViewById(R.id.card_image);
             TextView textView = (TextView) itemView.findViewById(R.id.card_item);
             imageView.setImageResource(currentCard.iconId);
-            imageView.setOnClickListener(null);
             textView.setText(currentCard.title);
 
             return itemView;

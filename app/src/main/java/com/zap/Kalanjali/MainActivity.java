@@ -28,8 +28,8 @@ public class MainActivity extends ActionBarActivity {
     //Similarly we Create a String Resource for the name and email in the header view
     //And we also create a int resource for profile picture in the header view
 
-    String NAME = "Zeeshan Ahmed P";
-    String EMAIL = "zeetherocker@gmail.com";
+    String NAME = "Kalanjali 2015";
+    String EMAIL = "kalanjali@mvit.com";
     int PROFILE = R.drawable.aka;
     int position = 1;
 

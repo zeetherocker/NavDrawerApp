@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_margin="5dp"
+    android:background="@drawable/background"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
@@ -23,7 +24,8 @@
         android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
-        android:layout_alignBottom="@+id/card_image" />
+        android:layout_alignBottom="@+id/card_image"
+        android:focusableInTouchMode="true"/>
 
     <TextView
         android:layout_width="wrap_content"
