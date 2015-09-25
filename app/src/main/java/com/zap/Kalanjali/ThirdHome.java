@@ -52,6 +52,8 @@ public class ThirdHome extends Fragment {
                 startActivity(new Intent(getActivity(), EventActivity.class));
             }
         });
+        list.clearFocus();
+        list.setFocusable(false);
     }
 
     public List<CardInfo> getData() {

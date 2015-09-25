@@ -44,6 +44,8 @@ public class SecondHome extends Fragment {
                 startActivity(new Intent(getActivity(), EventActivity.class));
             }
         });
+        list.clearFocus();
+        list.setFocusable(false);
     }
 
     public void populateList() {
@@ -79,9 +81,8 @@ public class SecondHome extends Fragment {
 
             CardInfo currentCard = dataCurrent.get(position);
 
-            TextView labelView = (TextView) myView.findViewById(R.id.card_list_label);
-            labelView.setText("Dance Events");
-            itemView.isClickable();
+            TextView titleView = (TextView) myView.findViewById(R.id.card_list_label);
+            titleView.setText("Dance Events");
             ImageView imageView = (ImageView) itemView.findViewById(R.id.card_image);
             TextView textView = (TextView) itemView.findViewById(R.id.card_item);
             imageView.setImageResource(currentCard.iconId);

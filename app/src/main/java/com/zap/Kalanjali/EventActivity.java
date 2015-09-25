@@ -1,98 +1,149 @@
 package com.zap.Kalanjali;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
+import android.view.ViewTreeObserver;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.List;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
+import com.nineoldandroids.view.ViewHelper;
 
-public class EventActivity extends AppCompatActivity {
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
-    private Toolbar mToolbar;
-    private ImageButton mFloatingButton;
-    RecyclerView mRecyclerView;
-    EventAdapter mEventAdapter;
-    String mText;
-    List<String> mItemList;
-    ImageView mImageView;
-    LinearLayout mToolbarContainer;
-    int mToolbarHeight;
 
-    String TITLES[] = {"Home","Events","Locate us","Contact","Home","Events","Locate us","Contact","Home","Events","Locate us","Contact","Home","Events","Locate us","Contact","Home","Events","Locate us","Contact","Home","Events","Locate us","Contact"};
+/**
+ * Fragment with Flexible Space Header
+ * Created by chomi3 on 09.12.14.
+ */
+public class EventActivity extends AppCompatActivity implements ObservableScrollViewCallbacks {
+    public static final String TAG = "FlexibleSpaceHeaderFragment";
+
+    //@InjectView(R.id.observable_sv)
+    ScrollFling mScrollView;
+
+    //@InjectView(R.id.title)
+    TextView mTitle; //Title used instead of Toolbar.title
+
+    //@InjectView(R.id.toolbar_view)
+    Toolbar mToolbarView;
+
+    //@InjectView(R.id.ll_above_photo)
+    protected LinearLayout llTintLayer; //Layout that we're tinting when scrolling
+
+    //@InjectView(R.id.fl_image)
+    protected FrameLayout flImage; //Layout that hosts the header image
+
+    private int mParallaxImageHeight;
+    private int mScrollY = 0; //Keeps track of our scroll.
+    private boolean mIsToolbarShown = true;
+    private int mToolbarHeight;
+    private boolean goingUp = false;
+
+    private int mToolbarBackgroundColor;
+
+    public EventActivity() {
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event);
-        mToolbarContainer = (LinearLayout) findViewById(R.id.event_tool_bar_container);
-        intiToolBar();
-        initRecycler();
-        //mFloatingButton = (ImageButton) findViewById(R.id.floating_Button);
-        mImageView = (ImageView) findViewById(R.id.event_page_image);
+        setTheme(R.style.Toolbar);
+        setContentView(R.layout.event_activity);
+
+        //Store flexible space height
+        mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.parallax_image_height);
+
+        mScrollView = (ScrollFling) findViewById(R.id.observable_sv);
+        mTitle = (TextView) findViewById(R.id.title);
+        mTitle.setText(this.getClass().getSimpleName());
+        mToolbarView = (Toolbar) findViewById(R.id.toolbar_view);
+        llTintLayer = (LinearLayout) findViewById(R.id.ll_above_photo);
+        flImage = (FrameLayout) findViewById(R.id.fl_image);
+
+        configureToolbarView();
+        configureScrollView();
+
     }
 
-    private void intiToolBar() {
-        mToolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(mToolbar);
-        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    }
+    private void configureScrollView() {
+        mScrollView.setScrollViewCallbacks(this);
+        mScrollView.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
-    private void initRecycler() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.event_recycler);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mEventAdapter = new EventAdapter(TITLES);
-        mRecyclerView.setAdapter(mEventAdapter);
-        mRecyclerView.setOnScrollListener(new EventOnScrollListner(this) {
+        mScrollView.setOnFlingListener(new ScrollFling.OnFlingListener() {
             @Override
-            public void onMoved(int distance) {
-                mToolbarContainer.setTranslationY(-distance);
+            public void onFlingStarted() {
+                if (goingUp && !mIsToolbarShown) {
+                    showFullToolbar(50);
+                }
             }
 
             @Override
-            public void onShow() {
-                mToolbarContainer.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-            }
+            public void onFlingStopped() {
 
+            }
+        });
+
+        ViewTreeObserver vto = mTitle.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
-            public void onHide() {
-                mToolbarContainer.animate().translationY(-mToolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    mTitle.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                } else {
+                    mTitle.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+                updateFlexibleSpaceText(0);
             }
         });
     }
 
+    private void configureToolbarView() {
+        setSupportActionBar(mToolbarView);
+        mToolbarView.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        mToolbarView.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventActivity.this.onBackPressed();
+            }
+        });
 
-    private void hideViews() {
-        int height = mToolbar.getHeight()+mImageView.getHeight();
-        mImageView.animate().translationY(-mImageView.getHeight()).setInterpolator(new AccelerateInterpolator(2));
-        mToolbar.animate().translationY(-height).setInterpolator(new AccelerateInterpolator(2));
+        //Remove toolbars title, as we have our own title implementation
+        mToolbarView.post(new Runnable() {
+            @Override
+            public void run() {
+                mToolbarView.setTitle("");
 
-        //FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mFloatingButton.getLayoutParams();
-        //int floatBottomMargin = lp.bottomMargin;
-        //mFloatingButton.animate().translationY(mFloatingButton.getHeight()+floatBottomMargin).setInterpolator(new AccelerateInterpolator(2)).start();
-    }
+            }
+        });
 
-    private void showViews() {
-        mImageView.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
-        mToolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
-        //mFloatingButton.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+        mToolbarBackgroundColor = getResources().getColor(R.color.colorPrimary);
+        TypedValue tv = new TypedValue();
+        if (EventActivity.this.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
+            mToolbarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+        }
+        setBackgroundAlpha(mToolbarView, 0.0f, mToolbarBackgroundColor);
     }
 
 
@@ -104,18 +155,157 @@ public class EventActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-            return true;
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+        //Store actual scroll state:
+        if (mScrollY > scrollY) {
+            goingUp = true;
+        } else if (mScrollY < scrollY) {
+            goingUp = false;
         }
 
-        return super.onOptionsItemSelected(item);
+        //If we're close to edge, show toolbar faster
+        if (mScrollY - scrollY > 50 && !mIsToolbarShown) {
+            showFullToolbar(50); //speed up
+        } else if (mScrollY - scrollY > 0 && scrollY <= mParallaxImageHeight && !mIsToolbarShown) {
+            showFullToolbar(250);
+        }
+
+        //Show or hide full toolbar color, so it will become visible over scrollable content:
+        if (scrollY >= mParallaxImageHeight - mToolbarHeight) {
+            setBackgroundAlpha(mToolbarView, 1, mToolbarBackgroundColor);
+        } else {
+            setBackgroundAlpha(mToolbarView, 0, mToolbarBackgroundColor);
+        }
+
+        //Translate flexible image in Y axis
+        ViewHelper.setTranslationY(flImage, scrollY / 2);
+
+        //Calculate flexible space alpha based on scroll state
+        float alpha = 1 - (float) Math.max(0, mParallaxImageHeight - (mToolbarHeight) - scrollY) / (mParallaxImageHeight - (mToolbarHeight * 1.5f));
+        setBackgroundAlpha(llTintLayer, alpha, mToolbarBackgroundColor);
+
+        //Store last scroll state
+        mScrollY = scrollY;
+
+        //Move the flexible text
+        updateFlexibleSpaceText((scrollY));
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+
+        //If we're scrolling up, and are too far away from toolbar, hide it:
+        if (scrollState == ScrollState.UP) {
+            if (mScrollY > mParallaxImageHeight) {
+                if (mIsToolbarShown) {
+                    hideFullToolbar();
+                }
+            } else {
+                // Don't hide toolbar yet
+            }
+        } else if (scrollState == ScrollState.DOWN) {
+            //Show toolbar as fast as we're starting to scroll down
+            if (!mIsToolbarShown) {
+                showFullToolbar(250);
+            }
+        }
+    }
+
+    private void setBackgroundAlpha(View view, float alpha, int baseColor) {
+        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
+        int rgb = 0x00ffffff & baseColor;
+        view.setBackgroundColor(a + rgb);
+    }
+
+
+    public void showFullToolbar(int duration) {
+        mIsToolbarShown = true;
+
+        final AnimatorSet animatorSet = buildAnimationSet(duration,
+                buildAnimation(mToolbarView, -mToolbarHeight, 0),
+                buildAnimation(mTitle, -mToolbarHeight, 0));
+
+        animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                updateFlexibleSpaceText(mScrollY); //dirty update fling-fix
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                updateFlexibleSpaceText(mScrollY); //dirty update fling-fix
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+
+        animatorSet.start();
+
+    }
+
+    private ObjectAnimator buildAnimation(View view, float from, float to) {
+        return ObjectAnimator
+                .ofFloat(view, View.TRANSLATION_Y, from, to);
+    }
+
+    public void hideFullToolbar() {
+        mIsToolbarShown = false;
+        final AnimatorSet animatorSet = buildAnimationSet(250,
+                buildAnimation(mToolbarView, 0, -mToolbarHeight),
+                buildAnimation(mTitle, 0, -mToolbarHeight));
+        animatorSet.start();
+    }
+
+    private AnimatorSet buildAnimationSet(int duration, ObjectAnimator... objectAnimators) {
+
+        AnimatorSet a = new AnimatorSet();
+        a.playTogether(objectAnimators);
+        a.setInterpolator(AnimationUtils.loadInterpolator(EventActivity.this, android.R.interpolator.accelerate_decelerate));
+        a.setDuration(duration);
+
+        return a;
+    }
+
+    /**
+     * Scale title view and move it in Flexible space
+     * @param scrollY
+     */
+    private void updateFlexibleSpaceText(final int scrollY) {
+        if (!mIsToolbarShown) return;
+
+        int adjustedScrollY = scrollY;
+        if (scrollY < 0) {
+            adjustedScrollY = 0;
+        } else if (scrollY > mParallaxImageHeight) {
+            adjustedScrollY = mParallaxImageHeight;
+        }
+
+        float maxScale = 1.6f;
+        float scale = maxScale * ((float) (mParallaxImageHeight - mToolbarHeight) - adjustedScrollY) / (mParallaxImageHeight - mToolbarHeight);
+        if (scale < 0) {
+            scale = 0;
+        }
+
+        ViewHelper.setPivotX(mTitle, 0);
+        ViewHelper.setPivotY(mTitle, 0);
+        ViewHelper.setScaleX(mTitle, 1 + scale);
+        ViewHelper.setScaleY(mTitle, 1 + scale);
+
+        int maxTitleTranslation = (int) (mParallaxImageHeight * 0.4f);
+        int titleTranslation = (int) (maxTitleTranslation * ((float) scale / maxScale));
+        ViewHelper.setTranslationY(mTitle, titleTranslation);
     }
 }

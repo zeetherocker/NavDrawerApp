@@ -52,6 +52,8 @@ public class FirstHome extends Fragment {
                 startActivity(new Intent(getActivity(), EventActivity.class));
             }
         });
+        list.clearFocus();
+        list.setFocusable(false);
     }
 
     public List<CardInfo> getData() {
@@ -81,7 +83,7 @@ public class FirstHome extends Fragment {
 
             TextView titleView = (TextView) myView.findViewById(R.id.card_list_label);
             titleView.setText("Music Events");
-            titleView.isClickable();
+            titleView.clearFocus();
             ImageView imageView = (ImageView) itemView.findViewById(R.id.card_image);
             TextView textView = (TextView) itemView.findViewById(R.id.card_item);
             imageView.setImageResource(currentCard.iconId);

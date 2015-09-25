@@ -15,6 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.AbsListView;
+import android.widget.ListView;
+import android.widget.ScrollView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -42,8 +46,12 @@ public class MainActivity extends ActionBarActivity {
 
     ActionBarDrawerToggle mDrawerToggle;                  // Declaring Action Bar Drawer Toggle
 
-
-
+    // variables that control the Action Bar auto hide behavior (aka "quick recall")
+    private boolean mActionBarAutoHideEnabled = false;
+    private int mActionBarAutoHideSensivity = 0;
+    private int mActionBarAutoHideMinY = 0;
+    private int mActionBarAutoHideSignal = 0;
+    private boolean mActionBarShown = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +65,7 @@ public class MainActivity extends ActionBarActivity {
                 .replace(R.id.container, mFragment)
                 .commit();
 
-    /* Assinging the toolbar object ot the view
-    and setting the the Action bar to our toolbar
-     */
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
+        getActionBarToolbar();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView); // Assigning the RecyclerView Object to the xml View
 
@@ -200,4 +204,89 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    protected Toolbar getActionBarToolbar() {
+        if (toolbar == null) {
+            toolbar = (Toolbar) findViewById(R.id.tool_bar);
+            if (toolbar != null) {
+                setSupportActionBar(toolbar);
+            }
+        }
+        return toolbar;
+    }/*
+
+    /**
+     * Initializes the Action Bar auto-hide (aka Quick Recall) effect.
+     *
+    private void initActionBarAutoHide() {
+        mActionBarAutoHideEnabled = true;
+        mActionBarAutoHideMinY = getResources().getDimensionPixelSize(
+                R.dimen.action_bar_auto_hide_min_y);
+        mActionBarAutoHideSensivity = getResources().getDimensionPixelSize(
+                R.dimen.action_bar_auto_hide_sensivity);
+    }
+
+    /**
+     * Indicates that the main content has scrolled (for the purposes of showing/hiding
+     * the action bar for the "action bar auto hide" effect). currentY and deltaY may be exact
+     * (if the underlying view supports it) or may be approximate indications:
+     * deltaY may be INT_MAX to mean "scrolled forward indeterminately" and INT_MIN to mean
+     * "scrolled backward indeterminately".  currentY may be 0 to mean "somewhere close to the
+     * start of the list" and INT_MAX to mean "we don't know, but not at the start of the list"
+     *
+    private void onMainContentScrolled(int currentY, int deltaY) {
+        if (deltaY > mActionBarAutoHideSensivity) {
+            deltaY = mActionBarAutoHideSensivity;
+        } else if (deltaY < -mActionBarAutoHideSensivity) {
+            deltaY = -mActionBarAutoHideSensivity;
+        }
+
+        if (Math.signum(deltaY) * Math.signum(mActionBarAutoHideSignal) < 0) {
+            // deltaY is a motion opposite to the accumulated signal, so reset signal
+            mActionBarAutoHideSignal = deltaY;
+        } else {
+            // add to accumulated signal
+            mActionBarAutoHideSignal += deltaY;
+        }
+
+        boolean shouldShow = currentY < mActionBarAutoHideMinY ||
+                (mActionBarAutoHideSignal <= -mActionBarAutoHideSensivity);
+        autoShowOrHideActionBar(shouldShow);
+    }
+
+    protected void autoShowOrHideActionBar(boolean show) {
+        if (show == mActionBarShown) {
+            return;
+        }
+
+        mActionBarShown = show;
+        //onActionBarAutoShowOrHide(show);
+    }
+
+    protected void enableActionBarAutoHide(final ScrollView listView) {
+        initActionBarAutoHide();
+        listView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+
+            final static int ITEMS_THRESHOLD = 3;
+            int lastFvi = 0;
+
+            @Override
+            public void onScrollChanged() {
+                int scrollY = listView.getScrollY();
+                onMainContentScrolled(scrollY <= ITEMS_THRESHOLD ? 0 : Integer.MAX_VALUE,
+                        lastFvi - scrollY > 0 ? Integer.MIN_VALUE :
+                                lastFvi == scrollY ? 0 : Integer.MAX_VALUE
+                );
+                lastFvi = scrollY;
+
+            }
+        });
+    }
+
+    // Subclasses can override this for custom behavior
+    protected void onNavDrawerStateChanged(boolean isOpen, boolean isAnimating) {
+        if (mActionBarAutoHideEnabled && isOpen) {
+            autoShowOrHideActionBar(true);
+        }
+    }*/
 }

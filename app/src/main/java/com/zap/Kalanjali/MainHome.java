@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 /**
  * Created by Zeeshan on 9/20/2015.
@@ -22,8 +23,7 @@ public class MainHome extends Fragment {
         myView = inflater.inflate(R.layout.home_main_event, container, false);
         myView.isClickable();
         myView.setOnClickListener(mClickListner);
-        ScrollView v = (ScrollView) myView.findViewById(R.id.scroll_view);
-        myView.setFocusable(false);
+        myView.setFocusable(true);
         return myView;
     }
 
